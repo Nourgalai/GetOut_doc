@@ -26,8 +26,5 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Authorize Firebase CLI
-        run: gcloud auth application-default login
-
       - name: Deploy to Firebase Hosting
         run: firebase deploy --only hosting --project getout-docs
