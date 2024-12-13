@@ -1,0 +1,33 @@
+name: Deploy Firebase Hosting
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          workload_identity_provider: 'projects/807350776636/locations/global/workloadIdentityPools/getout-docs-pool/providers/getout-docs'
+          service_account: 'github-action-902570909@getout-docs.iam.gserviceaccount.com'
+
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      - name: Authorize Firebase CLI
+        run: gcloud auth application-default login
+
+      - name: Deploy to Firebase Hosting
+        run: firebase deploy --only hosting --project getout-docs
