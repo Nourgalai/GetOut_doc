@@ -25,6 +25,11 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
+      - name: Install Hugo
+        run: |
+          sudo apt-get update
+          sudo apt-get install hugo
+
       - name: Build Hugo site
         run: hugo
 
