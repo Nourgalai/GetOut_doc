@@ -3,15 +3,14 @@ name: Deploy Firebase Hosting
 on:
   push:
     branches:
-      - main
+      - firebase_deployment
 
 jobs:
   deploy:
+    runs-on: ubuntu-latest
     permissions:
       contents: 'read'
       id-token: 'write'
-
-    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -26,7 +25,10 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
+      - name: Build Hugo site
+        run: hugo
+
       - name: Deploy to Firebase Hosting
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
-        run: firebase deploy --only hosting --project getout-docs
+        run: firebase deploy --only hosting 
