@@ -30,6 +30,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install hugo
 
+      - name: Install PostCSS and npx
+        run: |
+          npm install -g postcss postcss-cli npx
+
       - name: Build Hugo site
         run: hugo
 
